@@ -1,0 +1,63 @@
+---
+layout: post
+title:  "Part 1 - Using Gems"
+date:   2016-08-27 11:08:39 +1200
+---
+
+# Gems
+
+Gems (also called _libraries_ in many other programming languages), are pieces of code other people have written and published for reuse. Much of software development involves building on top of these. While it is entirely possible to write sophisticated apps completely from scratch, using Gems saves development time. It also prevents many security and performance issues that result from developers not entirely understanding what they're writing.
+
+Today we're going to be using a Gem called "[Sentimental][sentimental]". This Gem allows us to pass it some text that it will analyse and tell us the overall mood or sentiment.
+
+To start with, let's create a _Gemfile_. This is a special file that describes which Gems and which version of those Gems we want to use in our project. Create an empty directory called `mood-analyzer`
+
+```
+$ mkdir mood-analyzer
+$ cd mood-analyzer
+```
+
+Then run `bundle init`
+
+```
+$ bundle init
+Writing new Gemfile to /Users/megan/Code/mood-analyzer/Gemfile
+```
+
+Open up the created Gemfile in your text editor and you should see something similar to this:
+
+{% highlight ruby %}
+# A sample Gemfile
+source "https://rubygems.org"
+
+# gem "rails"
+{% endhighlight %}
+
+You can go ahead and remove that `gem "rails"` line and add in its place `gem "sentimental"`
+
+{% highlight ruby %}
+source "https://rubygems.org"
+
+gem "sentimental"
+{% endhighlight %}
+
+Finally run `bundle install` to install the gem we have specified.
+
+```
+$ bundle install
+Fetching gem metadata from https://rubygems.org/
+Fetching version metadata from https://rubygems.org/
+Using json 1.8.3
+Using bundler 1.12.5
+Installing sentimental 1.4.0
+Bundle complete! 1 Gemfile dependency, 3 gems now installed.
+Use `bundle show [gemname]` to see where a bundled gem is installed.
+```
+
+# Using the Gem
+
+We're going to start off by analysing two pieces of public domain texts, you can find them [here][file1] and [here][file2]. Save them in to the same directory as your newly created Gemfile.
+
+[sentimental]: https://github.com/7compass/sentimental
+[file1]: {{site.github.url}}/txt/1342.txt
+[file2]: {{site.github.url}}/txt/17192.txt
