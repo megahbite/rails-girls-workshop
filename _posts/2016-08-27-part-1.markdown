@@ -254,6 +254,10 @@ puts analyse_file "17192.txt"
 
 Our program looks a lot clearer and shorter now! Run it again to make sure it's still working.
 
+Try the program out with your own text or from elsewhere. [Project Gutenburg](https://www.gutenberg.org/) has a tonne of public domain works available for free. Be aware that larger files may cause you program to crash.
+
+## [Move on to part 2]({{page.next.url}})
+
 [sentimental]: https://github.com/7compass/sentimental
 [file1]: {{site.github.url}}/txt/1342.txt
 [file2]: {{site.github.url}}/txt/17192.txt
