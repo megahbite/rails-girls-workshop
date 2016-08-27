@@ -8,6 +8,6 @@ In this part we're going to be using the Twitter API to gauge the sentiment of r
 
 APIs or Application Programming Interfaces are the glue that holds different apps and programs together. They allow us to use other programs' data in a well defined way. This lets us use and extend third-party apps to add new functionality or do something with their data they hadn't envisioned.
 
-Our first step is to create a Twitter API application so we can get the credentials we need to work with the API. Firstly you will need to add your mobile number to your account (Twitter insists on it due to abuse of the API). You will then need to fill out the form here: https://apps.twitter.com/app/new
+Our first step is to create a Twitter API application so we can get the credentials we need to work with the API. Firstly you will need to add your mobile number to your account (Twitter insists on it due to abuse of the API). You will then need to fill out the form here: [https://apps.twitter.com/app/new](https://apps.twitter.com/app/new)
 
 In the name field, put something like "Hashtag Mood Analyser", the description "An app that analyses the mood of a twitter hashtag" and website "http://railsgirls.com/wellington". Ignore the callback URL field, check the developers agreement checkbox and hit the button.
