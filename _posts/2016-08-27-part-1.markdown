@@ -4,13 +4,22 @@ title:  "Part 1 - Using Gems"
 date:   2016-08-27 11:08:39 +1200
 ---
 
-# Gems
+1. [What are Gems?](#what-are-gems)
+2. [Using the Gem](#using-the-gem)
+3. [Loading text from files](#loading-text-from-files)
+4. [Analysing the text](#analysing-the-text)
+5. [Running the program](#running-the-program)
+6. [Adding more to the program](#adding-more-to-the-program)
+
+# What are Gems?
 
 Gems (also called _libraries_ in many other programming languages), are pieces of code other people have written and published for reuse. Much of software development involves building on top of these. While it is entirely possible to write sophisticated apps completely from scratch, using Gems saves development time. It also prevents many security and performance issues that result from developers not entirely understanding what they're writing.
 
 Today we're going to be using a Gem called "[Sentimental][sentimental]". This Gem allows us to pass it some text that it will analyse and tell us the overall mood or sentiment.
 
-To start with, let's create a _Gemfile_. This is a special file that describes which Gems and which version of those Gems we want to use in our project. Create an empty directory called `mood-analyzer`
+To start with, let's create a _Gemfile_. This is a special file that describes which Gems and which version of those Gems we want to use in our project. Create an empty directory called `mood-analyser`
+
+Hint: in these examples the lines starting with a `$` are what you type in to a console window (without the `$`), the ones without are what you should expect to see in response.
 
 ```
 $ mkdir mood-analyzer
@@ -21,7 +30,7 @@ Then run `bundle init`
 
 ```
 $ bundle init
-Writing new Gemfile to /Users/megan/Code/mood-analyzer/Gemfile
+Writing new Gemfile to /Users/megan/Code/mood-analyser/Gemfile
 ```
 
 Open up the created Gemfile in your text editor and you should see something similar to this:
@@ -56,7 +65,67 @@ Use `bundle show [gemname]` to see where a bundled gem is installed.
 
 # Using the Gem
 
-We're going to start off by analysing two pieces of public domain texts, you can find them [here][file1] and [here][file2]. Save them in to the same directory as your newly created Gemfile.
+We're going to start off by analysing two pieces of public domain texts, you can find them [here][file1] and [here][file2] (you may recognise them). Save them in to the same directory as your newly created Gemfile.
+
+Then create a new file in the directory called `mood_analyser.rb`.
+
+In `mood_analyser.rb` we're going to add the following line:
+
+{% highlight ruby %}
+require "sentimental"
+{% endhighlight %}
+
+Unlike when using Ruby on Rails, which automatically loads any Gems in a Gemfile, vanilla Ruby requires us to manually specify which Gems we want to use. The `require` function is a built-in function that loads codes from the name passed to it.
+
+# Loading text from files
+
+After we've loaded the Gem, we need to load the text from the documents we downloaded. To do so we tell Ruby to `open` the files then `read` from them. Both of these are built-in:
+
+{% highlight ruby %}
+require "sentimental"
+
+text_file = open "1342.txt"
+text = text_file.read
+{% endhighlight %}
+
+What we're doing here is using the built-in function of Ruby `open`, and giving it a filename to open. This gives us an _object_ or _instance_ we can then call `read` on to read all the text from the file.
+
+It is possible to chain these lines together but for clarity's sake, let's keep them separate.
+
+# Analysing the text
+
+Now that we've loaded all the text we can use the Sentimental Gem to analyse it. To do so, we follow the usage instructions from the Gem's [GitHub page][sentimental]:
+
+{% highlight ruby %}
+require "sentimental"
+
+text_file = open "1342.txt"
+text = text_file.read
+
+analyser = Sentimental.new
+analyser.load_defaults
+
+sentiment = analyser.sentiment text
+puts sentiment
+{% endhighlight %}
+
+These four lines create a new instance of the `Sentimental` class provided by the Gem. We then load a default sentiment dictionary (it defines whether each term is considered positive or negative), analyse the text by passing it to the `sentiment` function, and finally print out the result of our analysis.
+
+`puts` is another built-in function like `open` that simply prints whatever you pass it out in a terminal window.
+
+# Running the program
+
+To run the program we have just written we simply need to enter in to our terminal window (make sure you are in the right directory!):
+
+```
+$ ruby mood_analyser.rb
+```
+
+This will spit out either `positive`, `negative` or `neutral` depending on what the analyser thinks of the text.
+
+# Adding more to the program
+
+
 
 [sentimental]: https://github.com/7compass/sentimental
 [file1]: {{site.github.url}}/txt/1342.txt
