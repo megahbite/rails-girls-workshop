@@ -16,7 +16,7 @@
 title: A Certain Sentimental Feeling - A Ruby Workshop
 email: megan@megan.geek.nz
 description: A beginners Ruby workshop developed for Rails Girls Wellington 2016
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl: "/rails-girls-workshop" # the subpath of your site, e.g. /blog
 url: "https://megahbite.github.io" # the base hostname & protocol for your site
 twitter_username: megahbite
 github_username:  megahbite
