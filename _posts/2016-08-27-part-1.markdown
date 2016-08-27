@@ -248,8 +248,8 @@ end
 analyser = Sentimental.new
 analyser.load_defaults
 
-puts analyse_file "1342.txt"
-puts analyse_file "17192.txt"
+puts analyse_file "1342.txt", analyser
+puts analyse_file "17192.txt", analyser
 {% endhighlight %}
 
 Our program looks a lot clearer and shorter now! Run it again to make sure it's still working.
