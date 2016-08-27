@@ -10,6 +10,7 @@ date:   2016-08-27 11:08:39 +1200
 4. [Analysing the text](#analysing-the-text)
 5. [Running the program](#running-the-program)
 6. [Adding more to the program](#adding-more-to-the-program)
+7. [DRY Code](#dry-code)
 
 # What are Gems?
 
@@ -125,7 +126,133 @@ This will spit out either `positive`, `negative` or `neutral` depending on what 
 
 # Adding more to the program
 
+We can now add some more lines of code to analyse the other piece of text and see if we get a different result.
 
+{% highlight ruby %}
+require "sentimental"
+
+text_file = open "1342.txt"
+text = text_file.read
+
+analyser = Sentimental.new
+analyser.load_defaults
+
+sentiment = analyser.sentiment text
+puts sentiment
+
+text_file = open "17192.txt"
+text = text_file.read
+
+sentiment = analyser.sentiment text
+puts sentiment
+{% endhighlight %}
+
+Run this again and you should see a second line of output with a different result.
+
+# DRY code
+
+Now at this point you may be noticing that we're repeating some lines of code and only changing them slightly or not at all. This is where one of the most important principles of software development comes in: DRY or "Don't Repeat Yourself", also know as "Once and Only Once".
+
+The idea is that we should be _refactoring_ to remove duplicated code. This adds clarity and stops the complexity from spiraling out of control in larger projects.
+
+In our situation the best thing to do is for us to define our own function we can reuse. We want to give this a good name so it's clear what it should do:
+
+{% highlight ruby %}
+require "sentimental"
+
+def analyse_file
+end
+
+text_file = open "1342.txt"
+text = text_file.read
+
+analyser = Sentimental.new
+analyser.load_defaults
+
+sentiment = analyser.sentiment text
+puts sentiment
+
+text_file = open "17192.txt"
+text = text_file.read
+
+sentiment = analyser.sentiment text
+puts sentiment
+{% endhighlight %}
+
+We then decide what parameters it should accept. In our situation we can see the only thing that's changing is the file name and we're also reusing the analyser for each file.
+
+{% highlight ruby %}
+require "sentimental"
+
+def analyse_file(file_name, analyser)
+end
+
+text_file = open "1342.txt"
+text = text_file.read
+
+analyser = Sentimental.new
+analyser.load_defaults
+
+sentiment = analyser.sentiment text
+puts sentiment
+
+text_file = open "17192.txt"
+text = text_file.read
+
+sentiment = analyser.sentiment text
+puts sentiment
+{% endhighlight %}
+
+Adding the body of the function should be fairly self evident:
+
+{% highlight ruby %}
+require "sentimental"
+
+def analyse_file(file_name, analyser)
+  text_file = open file_name
+  text = text_file.read
+
+  analyser.sentiment text
+end
+
+text_file = open "1342.txt"
+text = text_file.read
+
+analyser = Sentimental.new
+analyser.load_defaults
+
+sentiment = analyser.sentiment text
+puts sentiment
+
+text_file = open "17192.txt"
+text = text_file.read
+
+sentiment = analyser.sentiment text
+puts sentiment
+{% endhighlight %}
+
+Ruby has what is called _implicit return_. This means that the result of the last line of a function is what the function returns to whoever called it.
+
+Now we can _refactor_ our program to use our new function:
+
+{% highlight ruby %}
+require "sentimental"
+
+def analyse_file(file_name, analyser)
+  text_file = open file_name
+  text = text_file.read
+
+  analyser.sentiment text
+end
+
+analyser = Sentimental.new
+analyser.load_defaults
+
+puts analyse_file "1342.txt"
+puts analyse_file "17192.txt"
+{% endhighlight %}
+
+Our program looks a lot clearer and shorter now! Run it again to make sure it's still working.
 
 [sentimental]: https://github.com/7compass/sentimental
 [file1]: {{site.github.url}}/txt/1342.txt
