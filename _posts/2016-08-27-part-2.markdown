@@ -3,3 +3,7 @@ layout: post
 title:  "Part 2 - Using Sentimental with Twitter"
 date:   2016-08-27 12:08:39 +1200
 ---
+
+In this part we're going to be using the Twitter API to gauge the sentiment of recent tweets in a hashtag. For this to work, you will either need to create a twitter account or already have one.
+
+Our first step is to 
